@@ -1,22 +1,22 @@
 import de.comparus.opensource.longmap.LongMapImpl;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 
-public class LongMapTests {
+public class LongMapTest {
     @Test
     public void testPut() {
         LongMapImpl<Object> longMap = new LongMapImpl<>();
         longMap.put(123, new Object());
-        Assert.assertTrue(longMap.size() == 1);
+        Assertions.assertEquals(1, longMap.size());
     }
 
     @Test
     public void testGet() {
         LongMapImpl<Object> longMap = new LongMapImpl<>();
         longMap.put(123, new Object());
-        Assert.assertTrue(longMap.get(123) != null);
+        Assertions.assertNotNull(longMap.get(123));
     }
 
     @Test
@@ -24,7 +24,7 @@ public class LongMapTests {
     LongMapImpl<Object> longMap = new LongMapImpl<>();
         longMap.put(123, new Object());
         longMap.remove(123);
-        Assert.assertTrue(longMap.size()==0);
+        Assertions.assertEquals(0, longMap.size());
 }
 
     @Test
@@ -32,14 +32,14 @@ public class LongMapTests {
         LongMapImpl<Object> longMap = new LongMapImpl<>();
         longMap.put(123, new Object());
         longMap.remove(123);
-        Assert.assertTrue(longMap.isEmpty());
+        Assertions.assertTrue(longMap.isEmpty());
     }
 
     @Test
     public void testContainsKey() {
         LongMapImpl<Object> longMap = new LongMapImpl<>();
         longMap.put(123, new Object());
-        Assert.assertTrue(longMap.containsKey(123));
+        Assertions.assertTrue(longMap.containsKey(123));
     }
 
     @Test
@@ -47,28 +47,28 @@ public class LongMapTests {
         LongMapImpl<Object> longMap = new LongMapImpl<>();
         Object ob = new Object();
         longMap.put(123, ob);
-        Assert.assertTrue(longMap.containsValue(ob));
+        Assertions.assertTrue(longMap.containsValue(ob));
     }
 
     @Test
     public void testKeys() {
         LongMapImpl<Object> longMap = new LongMapImpl<>();
         longMap.put(123, new Object());
-        Assert.assertTrue(longMap.keys().length==1);
+        Assertions.assertTrue(longMap.keys().length==1);
     }
 
     @Test
     public void testValues() {
         LongMapImpl<Object> longMap = new LongMapImpl<>();
         longMap.put(123, new Object());
-        Assert.assertTrue(longMap.values().length==1);
+        Assertions.assertTrue(longMap.values().length==1);
     }
 
     @Test
     public void testSize() {
         LongMapImpl<Object> longMap = new LongMapImpl<>();
         longMap.put(123, new Object());
-        Assert.assertTrue(longMap.size()==1);
+        Assertions.assertTrue(longMap.size()==1);
     }
 
     @Test
@@ -77,6 +77,6 @@ public class LongMapTests {
         longMap.put(123, new Object());
         longMap.put(124, new Object());
         longMap.clear();
-        Assert.assertTrue(longMap.size()==0);
+        Assertions.assertTrue(longMap.size()==0);
     }
 }
