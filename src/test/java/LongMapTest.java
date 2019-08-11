@@ -13,6 +13,15 @@ public class LongMapTest {
     }
 
     @Test
+    public void testPutSame() {
+        LongMapImpl<Object> longMap = new LongMapImpl<>();
+        longMap.put(123, "Test");
+        longMap.put(123, "Test1");
+        Assertions.assertEquals(1, longMap.size());
+        Assertions.assertEquals("Test1", longMap.get(123));
+    }
+
+    @Test
     public void testGet() {
         LongMapImpl<Object> longMap = new LongMapImpl<>();
         longMap.put(123, new Object());
@@ -20,11 +29,26 @@ public class LongMapTest {
     }
 
     @Test
+    public void testGetNegative() {
+        LongMapImpl<Object> longMap = new LongMapImpl<>();
+        longMap.put(123, new Object());
+        Assertions.assertNull(longMap.get(124));
+    }
+
+
+    @Test
     public void testRemove(){
     LongMapImpl<Object> longMap = new LongMapImpl<>();
         longMap.put(123, new Object());
         longMap.remove(123);
         Assertions.assertEquals(0, longMap.size());
+}
+@Test
+    public void testRemoveNegative(){
+    LongMapImpl<Object> longMap = new LongMapImpl<>();
+        longMap.put(123, new Object());
+        longMap.remove(124);
+        Assertions.assertEquals(1, longMap.size());
 }
 
     @Test
