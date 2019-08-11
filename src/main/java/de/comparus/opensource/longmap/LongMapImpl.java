@@ -49,25 +49,34 @@ public class LongMapImpl<V> implements de.comparus.opensource.longmap.LongMap<V>
     }
 
     public V put(long key, V value) {
+        return putV(key, value, false);
+    }
+
+    private V putV(long key, V value, boolean addCapasity) {
         boolean isDouble = false;
         V oldValue = null;
         if (countElements > (capasity * loadFactor)) {
             capasity = capasity * 2;
-            LinkedList<Node<V>>[] OldList= this.list;
+            LinkedList<Node<V>>[] OldList = this.list;
             LinkedList<Node<V>>[] list = new LinkedList[capasity];
             this.list = list;
+
+            //Добавление старого списка в новый(увеличиный)
             for (LinkedList<Node<V>> n : OldList) {
                 if (n != null) {
                     for (Node<V> i : n) {
-                        put(i.key, i.value);
+                        putV(i.key, i.value,true);
                     }
                 }
             }
         }
+        //Определение номера бакета
         int numberCell = new Long(key).hashCode() % capasity;
+        //Проверка для не созданый бакет
         if (list[numberCell] == null) {
             list[numberCell] = new LinkedList<>();
         }
+        //Если дубликат ключа
         for (Node<V> i : list[numberCell]) {
             if (i.key == key) {
                 oldValue = i.value;
@@ -76,14 +85,17 @@ public class LongMapImpl<V> implements de.comparus.opensource.longmap.LongMap<V>
                 break;
             }
         }
-
+        //Если не дубликат ключа
         if (isDouble == false) {
             Node<V> node = (new Node(key, value));
             list[numberCell].add(node);
-            countElements++;
+            if(!addCapasity){
+                countElements++;
+            }
         }
         return oldValue;
     }
+
 
     public V get(long key) {
         int numberCell = new Long(key).hashCode() % capasity;
